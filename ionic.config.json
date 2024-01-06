@@ -1,0 +1,7 @@
+{
+  "name": "Carsale---Mobile",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
