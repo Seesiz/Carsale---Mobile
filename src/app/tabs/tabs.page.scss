@@ -1,0 +1,16 @@
+.tabs {
+  background-color: var(--bg);
+  display: flex;
+  justify-content: space-between;
+  padding: 2% 1%;
+  border: none;
+  box-shadow: none;
+}
+
+.tabs .add {
+  background-color: var(--secondary);
+}
+
+.ion-content {
+  background-color: var(--bg-card);
+}

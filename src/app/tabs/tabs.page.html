@@ -1,0 +1,27 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Carsale </ion-title>
+    <ion-icon
+      name="search"
+      class="position-absolute"
+      style="right: 2%; top: 50%; transform: translateY(-50%)"
+    ></ion-icon>
+  </ion-toolbar>
+</ion-header>
+<ion-tabs>
+  <ion-tab-bar slot="bottom" class="tabs d-flex gap-2">
+    <ion-tab-button tab="accueil" class="btn" href="/accueil">
+      <ion-icon aria-hidden="true" name="home"></ion-icon>
+    </ion-tab-button>
+
+    <span class="col-3 d-flex flex-row justify-content-evenly">
+      <ion-tab-button tab="ajout" class="btn add" href="/ajout">
+        <ion-icon name="add"></ion-icon>
+      </ion-tab-button>
+    </span>
+
+    <ion-tab-button class="btn" tab="parametre" href="/parametre">
+      <ion-icon aria-hidden="true" name="settings"></ion-icon>
+    </ion-tab-button>
+  </ion-tab-bar>
+</ion-tabs>

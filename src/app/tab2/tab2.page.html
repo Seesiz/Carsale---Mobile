@@ -1,0 +1,122 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Ajout </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="container d-flex flex-column">
+    <h1>Ajout</h1>
+    <div class="row py-1">
+      <div class="col-12 d-flex flex-column gap-2 align-items-center">
+        <div
+          class="choice row p-3 col-12 position-relative gap-2"
+          (dragenter)="onDragEnter($event)"
+          (dragover)="onDragOver($event)"
+          (dragleave)="onDragLeave($event)"
+          (drop)="onDrop($event)"
+        >
+          <header class="col-12">
+            <label
+              *ngIf="selectedFiles.length != 0"
+              for="file"
+              class="btn btn-primary ajouter col-3"
+              style="font-size: 14px; z-index: 10"
+              >Ajouter</label
+            >
+          </header>
+          <label
+            *ngIf="selectedFiles.length == 0"
+            for="file"
+            class="fa fa-plus add col-2 text-center position-absolute"
+            style="font-size: 50px; z-index: 10"
+          ></label>
+          <div
+            class="fileItem card d-flex flex-column justify-content-between col-3 p-2"
+            *ngFor="let file of selectedFiles; let i = index"
+          >
+            <span class="d-flex flex-column">
+              <img
+                [src]="getThumbnailUrl(file)"
+                alt="{{ file.name }}"
+                width="100%"
+              />
+            </span>
+            <div class="footer d-flex flex-column gap-1">
+              <button class="btn btn-warning" (click)="deleteFile(i)">
+                Supprimer
+              </button>
+            </div>
+          </div>
+        </div>
+        <input
+          type="file"
+          name="data"
+          id="file"
+          class="invisible position-fixed"
+          multiple
+          (change)="onFileSelected($event)"
+        />
+        <label for="modele">Modèle:</label>
+        <select name="modele" id="modele" class="form-select">
+          <option value="">Hehe</option>
+          <option value="">Hehe</option>
+        </select>
+        <label for="plaque">Plaque:</label>
+        <input
+          type="text"
+          name="plaque"
+          id="plaque"
+          class="form-control"
+          placeholder="Plaque"
+        />
+        <label for="prix">Prix:</label>
+        <input
+          type="number"
+          name="prix"
+          id="prix"
+          class="form-control"
+          placeholder="Prix"
+        />
+        <label for="etat">Etat:</label>
+        <select name="etat" id="etat" class="form-select">
+          @for(item of [1,2,3,4,5,6,7,8,9,10]; track item){
+          <option [value]="item">{{item}}</option>
+          }
+        </select>
+        <label for="couleur">Couleur:</label>
+        <input type="color" name="couleur" id="couleur" class="form-control" />
+        <div
+          class="d-flex flex-row justify-content-between gap-2 align-items-end"
+        >
+          <span style="font-size: 20px">Caractéristique</span>
+        </div>
+        <span
+          *ngFor="let item of caracter; let i = index"
+          class="d-flex flex-row gap-2 justify-content-between align-items-center"
+        >
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Type"
+            [(ngModel)]="item.designation"
+          />
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Valeur"
+            [(ngModel)]="item.value"
+          />
+          <i class="fa fa-close" (click)="caracter.splice(i,1)"></i>
+        </span>
+        <span (click)="caracter.push({designation: '', value: ''})">
+          <i class="fa fa-circle-plus"></i>
+          <span> Ajouter</span>
+        </span>
+        <button style="background-color: var(--secondary)" class="btn col-12">
+          Valider
+        </button>
+      </div>
+    </div>
+  </div>
+</ion-content>
