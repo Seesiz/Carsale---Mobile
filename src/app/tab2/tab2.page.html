@@ -59,12 +59,10 @@
         />
         <label for="modele">Modèle:</label>
         <select name="modele" id="modele" class="form-select" [(ngModel)]="idModel">
-          <option value="">Choisir modele</option>
           <option *ngFor="let model of modeles" [value]="model.idModel">{{ model.designation }}</option>
         </select>
         <label for="categorie">Categorie:</label>
         <select name="categorie" id="categorie" class="form-select" [(ngModel)]="idCategorie">
-          <option value="">Choisir categorie</option>
           <option *ngFor="let categorie of categories" [value]="categorie.idCategorie">{{ categorie.designation }}</option> 
         </select>
         <label for="plaque">Plaque:</label>
@@ -87,7 +85,6 @@
         />
         <label for="etat">Etat:</label>
         <select name="etat" id="etat" class="form-select" [(ngModel)]="idEtat">
-          <option value="">Choisir etat</option>
           <option *ngFor="let etat of etats" [value]="etat.idEtat">{{ etat.idEtat }}</option>
         </select>
         <label for="couleur">Couleur:</label>

@@ -9,6 +9,7 @@ import { GeneraliserService } from './../Service/generaliser.service';
 export class Tab2Page {
   caracter: any[] = [];
   selectedFiles: File[] = [];
+  base64Files: String[] = [];
   modeles: any[] = [];
   categories: any[] = [];
   etats:any[] = [];
@@ -54,18 +55,22 @@ export class Tab2Page {
     } catch (error) {
       alert(error);
     }
-  }
+  }  
   
   
-  ajouter(){
+  async ajouter(){
     var model = this.modeles.find(item => item.idModel === parseInt(this.idModel));
     var categorie = this.categories.find(item => item.idCategorie === parseInt(this.idCategorie));
     var etat = this.etats.find(item => item.idEtat === parseInt(this.idEtat));
     var annonce = {
       dateAnnonce:this.dateNow(),
-      annonceur:{},
+      annonceur:{
+        idPersonne: 1
+      },
       voiture:{
-          personne: {},
+          personne: {
+            idPersonne: 1
+          },
           categorie: categorie,
           model: model,
           couleur: this.couleur,
@@ -74,10 +79,17 @@ export class Tab2Page {
           etat: etat
       },
       detailVoitures:this.caracter,
-      photos:null    
+      photos: this.base64Files
     };
-    console.log(this.selectedFiles);
-      // this.generaliserService.insert("annonces",annonce);
+    await this.generaliserService.insert("annonces",annonce);
+  }
+  
+  async encodeFile(index:number,file:File){
+    const reader = new FileReader();
+    reader.onload = () => {
+      this.base64Files[index] = reader.result as string;
+    }
+    reader.readAsDataURL(file);
   }
   
   
@@ -126,10 +138,14 @@ export class Tab2Page {
     } else {
       this.selectedFiles = [];
     }
+    this.selectedFiles.map((photo,index) => {
+      this.encodeFile(index,photo);
+    });
   }
 
   deleteFile(index: number) {
     this.selectedFiles.splice(index, 1);
+    this.base64Files.splice(index,1);
   }
 
   onDragEnter(event: DragEvent) {
