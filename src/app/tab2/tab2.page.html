@@ -10,44 +10,52 @@
     <div class="row py-1">
       <div class="col-12 d-flex flex-column gap-2 align-items-center">
         <div
-          class="choice row p-3 col-12 position-relative gap-2"
-          (dragenter)="onDragEnter($event)"
-          (dragover)="onDragOver($event)"
-          (dragleave)="onDragLeave($event)"
-          (drop)="onDrop($event)"
+          class="d-flex flex-row gap-2 col-12 p-2 justify-content-start"
+          style="overflow-x: auto; background-color: white; border-radius: 12px"
         >
-          <header class="col-12">
-            <label
-              *ngIf="selectedFiles.length != 0"
-              for="file"
-              class="btn btn-primary ajouter col-3"
-              style="font-size: 14px; z-index: 10"
-              >Ajouter</label
-            >
-          </header>
-          <label
-            *ngIf="selectedFiles.length == 0"
-            for="file"
-            class="fa fa-plus add col-2 text-center position-absolute"
-            style="font-size: 50px; z-index: 10"
-          ></label>
           <div
-            class="fileItem card d-flex flex-column justify-content-between col-3 p-2"
-            *ngFor="let file of selectedFiles; let i = index"
+            *ngFor="let img of base64Files; let i = index"
+            class="d-flex flex-column justify-content-evenly align-items-center position-relative"
+            style="
+              overflow: hidden;
+              height: 200px;
+              min-width: 150px;
+              background: linear-gradient(
+                30deg,
+                var(--secondary),
+                var(--secondary-transparent)
+              );
+              border-radius: 10px;
+            "
           >
-            <span class="d-flex flex-column">
-              <!-- <img
-                [src]="getThumbnailUrl(file)"
-                alt="{{ file.name }}"
-                width="100%"
-              /> -->
-            </span>
-            <div class="footer d-flex flex-column gap-1">
-              <button class="btn btn-warning" (click)="deleteFile(i)">
-                Supprimer
-              </button>
-            </div>
+            <img [src]="img" alt="" width="100%" height="100%" />
+            <button
+              class="btn btn-danger position-absolute"
+              style="bottom: 2%; z-index: 100"
+              (click)="deleteFile(i)"
+            >
+              Supprimer
+            </button>
           </div>
+          <label
+            for="file"
+            class="d-flex flex-column justify-content-evenly align-items-center"
+            style="
+              height: 200px;
+              min-width: 150px;
+              background: linear-gradient(
+                30deg,
+                var(--secondary),
+                var(--secondary-transparent)
+              );
+              border-radius: 10px;
+            "
+          >
+            <i
+              class="fa-solid fa-plus"
+              style="font-size: 20px; color: var(--primary)"
+            ></i>
+          </label>
         </div>
         <input
           type="file"
@@ -58,12 +66,29 @@
           (change)="onFileSelected($event)"
         />
         <label for="modele">Modèle:</label>
-        <select name="modele" id="modele" class="form-select" [(ngModel)]="idModel">
-          <option *ngFor="let model of modeles" [value]="model.idModel">{{ model.designation }}</option>
+        <select
+          name="modele"
+          id="modele"
+          class="form-select"
+          [(ngModel)]="idModel"
+        >
+          <option *ngFor="let model of modeles" [value]="model.idModel">
+            {{ model.designation }}
+          </option>
         </select>
         <label for="categorie">Categorie:</label>
-        <select name="categorie" id="categorie" class="form-select" [(ngModel)]="idCategorie">
-          <option *ngFor="let categorie of categories" [value]="categorie.idCategorie">{{ categorie.designation }}</option> 
+        <select
+          name="categorie"
+          id="categorie"
+          class="form-select"
+          [(ngModel)]="idCategorie"
+        >
+          <option
+            *ngFor="let categorie of categories"
+            [value]="categorie.idCategorie"
+          >
+            {{ categorie.designation }}
+          </option>
         </select>
         <label for="plaque">Plaque:</label>
         <input
@@ -85,10 +110,18 @@
         />
         <label for="etat">Etat:</label>
         <select name="etat" id="etat" class="form-select" [(ngModel)]="idEtat">
-          <option *ngFor="let etat of etats" [value]="etat.idEtat">{{ etat.idEtat }}</option>
+          <option *ngFor="let etat of etats" [value]="etat.idEtat">
+            {{ etat.idEtat }}
+          </option>
         </select>
         <label for="couleur">Couleur:</label>
-        <input type="color" name="couleur" id="couleur" class="form-control" [(ngModel)]="couleur"/>
+        <input
+          type="color"
+          name="couleur"
+          id="couleur"
+          class="form-control"
+          [(ngModel)]="couleur"
+        />
         <div
           class="d-flex flex-row justify-content-between gap-2 align-items-end"
         >
@@ -112,11 +145,18 @@
           />
           <i class="fa fa-close" (click)="caracter.splice(i,1)"></i>
         </span>
-        <span (click)="caracter.push({designation: '', valeur: ''})">
+        <span
+          (click)="caracter.push({designation: '', valeur: ''})"
+          style="cursor: pointer"
+        >
           <i class="fa fa-circle-plus"></i>
           <span> Ajouter</span>
         </span>
-        <button style="background-color: var(--secondary)" class="btn col-12" (click)="ajouter()">
+        <button
+          style="background-color: var(--secondary)"
+          class="btn col-12"
+          (click)="ajouter()"
+        >
           Ajouter annonce
         </button>
       </div>

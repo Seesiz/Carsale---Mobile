@@ -4,7 +4,7 @@ import axios from 'axios';
   providedIn: 'root',
 })
 export class GeneraliserService {
-  url:string = "http://localhost:8080";
+  url: string = 'http://localhost:8080';
   constructor() {}
 
   async getAll(path: string) {
@@ -24,10 +24,12 @@ export class GeneraliserService {
       throw error;
     }
   }
-  
-  async insertWithTokken(path: string, data: any,headers:any) {
+
+  async insertWithTokken(path: string, data: any, headers: any) {
     try {
-      const response = await axios.post(`${this.url}/${path}`, data,{headers});
+      const response = await axios.post(`${this.url}/${path}`, data, {
+        headers,
+      });
       return response.data;
     } catch (error) {
       throw error;

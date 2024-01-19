@@ -46,13 +46,6 @@ export class LoginComponent implements OnInit {
   }
 
   async login() {
-    //Mampety fontsiny aloha
-    // localStorage.setItem('CarSalTokken', '');
-    // localStorage.setItem('CarsalidPersonne', '');
-    // this.connected = {
-    //   statut: true,
-    // };
-    // this.router.navigateByUrl('/home/accueil');
     this.dataToInsert = {
       mail: this.dataToInsert.mail ? this.dataToInsert.mail : '',
       motDePass: this.dataToInsert.motDePass ? this.dataToInsert.motDePass : '',
@@ -89,7 +82,6 @@ export class LoginComponent implements OnInit {
       this.connected = {
         statut: true,
       };
-      // this.ConnectionService.updateData(this.connected);
       this.router.navigateByUrl('/home/accueil');
     } catch (error) {
       this.error = {
@@ -102,7 +94,7 @@ export class LoginComponent implements OnInit {
   }
 
   async insertData() {
-    /*this.dataToInsert = {
+    this.dataToInsert = {
       mail: this.dataToInsert.mail ? this.dataToInsert.mail : '',
       motDePass: this.dataToInsert.motDePass ? this.dataToInsert.motDePass : '',
       nom: this.dataToInsert.nom ? this.dataToInsert.nom : '',
@@ -157,8 +149,7 @@ export class LoginComponent implements OnInit {
       this.connected = {
         statut: true,
       };
-      this.ConnectionService.updateData(this.connected);
-      this.router.navigateByUrl('');
+      this.router.navigateByUrl('/home/accueil');
     } catch (error) {
       this.error = {
         statut: true,
@@ -166,6 +157,6 @@ export class LoginComponent implements OnInit {
       };
       this.ErrorService.updateData(this.error);
       return;
-    }*/
+    }
   }
 }
