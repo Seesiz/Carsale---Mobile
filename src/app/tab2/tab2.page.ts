@@ -62,14 +62,17 @@ export class Tab2Page {
     var model = this.modeles.find(item => item.idModel === parseInt(this.idModel));
     var categorie = this.categories.find(item => item.idCategorie === parseInt(this.idCategorie));
     var etat = this.etats.find(item => item.idEtat === parseInt(this.idEtat));
+    var idAnnonceur = localStorage.getItem("CarsalidPersonne");
+    var tokken = localStorage.getItem("CarSalTokken");
+    var headers = { tokken:tokken };
     var annonce = {
       dateAnnonce:this.dateNow(),
       annonceur:{
-        idPersonne: 1
+        idPersonne: idAnnonceur
       },
       voiture:{
           personne: {
-            idPersonne: 1
+            idPersonne: idAnnonceur
           },
           categorie: categorie,
           model: model,
@@ -81,8 +84,10 @@ export class Tab2Page {
       detailVoitures:this.caracter,
       photos: this.base64Files
     };
-    await this.generaliserService.insert("annonces",annonce);
+    const response = await this.generaliserService.insertWithTokken("annonces",annonce,headers);
+    alert(response.message);
   }
+
   
   async encodeFile(index:number,file:File){
     const reader = new FileReader();
