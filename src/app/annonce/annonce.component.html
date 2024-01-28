@@ -51,8 +51,10 @@
       <span
         >{{ data.voiture.model.marque.designation }}
         {{ data.voiture.model.designation }}<br />
-        {{ data.voiture.categorie.designation }}</span
-      >
+        {{ data.voiture.categorie.designation }}
+        <button class="btn btn-primary" (click)="vendu(data)">Vendu</button>  
+        <button class="btn btn-danger" (click)="supprimer(data)">Supprimer</button>  
+      </span>
       <span *ngIf="isShow" class="d-flex flex-column gap-1 align-items-start">
         <b>Etat</b> {{ data.voiture.etat.designation }}
         <b>Date de l'annonce:</b>
