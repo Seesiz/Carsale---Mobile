@@ -16,8 +16,6 @@ export class TabsPageModule {
   constructor(private router: Router) {}
 
   ngOnInit() {
-    console.log(localStorage.getItem('carsaleTokken'));
-
     if (localStorage.getItem('carsaleTokken') == null) {
       this.router.navigateByUrl('login');
     }

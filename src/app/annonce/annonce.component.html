@@ -1,0 +1,67 @@
+<div
+  [class]="class"
+  (mouseenter)="makeShowDetail()"
+  (mouseleave)="makeShowDetail()"
+>
+  <div
+    class="head position-absolute d-flex flex-row col-12 justify-content-between pr-2"
+    style="top: 0; z-index: 10"
+  >
+    <span
+      style="
+        background-color: rgba(0, 0, 0, 0.603);
+        color: white;
+        font-family: Arial, Helvetica, sans-serif;
+      "
+      class="py-1 px-3"
+    >
+      <i class="fa fa-heart"></i>
+      {{ favoriseurs }}
+    </span>
+  </div>
+  <div
+    class="image d-flex align-items-center justify-content-center position-relative"
+    style="height: 100%; overflow: hidden"
+  >
+    <img style="height: 100%; object-fit: cover; width: 100%" />
+
+    <button
+      [class]="showDetail"
+      mat-flat-button
+      (click)="makeShow()"
+      style="z-index: 21"
+    >
+      {{ isShow ? "Fermer" : "Voir Detail" }}
+    </button>
+  </div>
+  <div
+    class="detail position-relative p-2 px-3 col-12 d-flex flex-row align-items-start justify-content-between"
+    style="bottom: 0; height: 25%; overflow-y: auto; z-index: 20"
+  >
+    <span style="z-index: 2" class="d-flex flex-column gap-2">
+      <span
+        style="
+          font-family: Arial, Helvetica, sans-serif;
+          background-color: var(--secondary);
+          border-radius: 12px;
+        "
+        class="px-4"
+        >{{ data.voiture.prix | number : ".0" }}Ar</span
+      >
+      <span
+        >{{ data.voiture.model.marque.designation }}
+        {{ data.voiture.model.designation }}<br />
+        {{ data.voiture.categorie.designation }}</span
+      >
+      <span *ngIf="isShow" class="d-flex flex-column gap-1 align-items-start">
+        <b>Etat</b> {{ data.voiture.etat.designation }}
+        <b>Date de l'annonce:</b>
+        {{ data.dateAnnonce | date : "fullDate" }}
+        <b>Caractéristique:</b>
+        <span *ngFor="let item of data.detailVoitures">
+          {{ item.designation }}: {{ item.valeur }}
+        </span>
+      </span>
+    </span>
+  </div>
+</div>
