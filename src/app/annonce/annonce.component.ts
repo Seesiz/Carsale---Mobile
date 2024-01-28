@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { GeneraliserService } from '../Service/generaliser.service';
 
 @Component({
   selector: 'app-annonce',
@@ -30,6 +31,21 @@ export class AnnonceComponent implements OnInit {
       });
       this.favoriseurs = this.data.favoriseur.length;
     }
+  }
+  
+  constructor(
+    private generaliserService: GeneraliserService
+  ) {
+  }
+  
+  async vendu(annonce:any){
+    await this.generaliserService.modifier('annonces/etat?idAnnonce='+annonce.id+'&etat='+20,null);
+    annonce.etat = 20;
+  }
+  
+  async supprimer(annonce:any){
+    await this.generaliserService.modifier('annonces/etat?idAnnonce='+annonce.id+'&etat='+5,null);
+    annonce.etat = 5;
   }
 
   makeShow() {
