@@ -4,7 +4,7 @@ import axios from 'axios';
   providedIn: 'root',
 })
 export class GeneraliserService {
-  url: string = 'http://localhost:8080';
+  url: string = 'https://carsale-back-production.up.railway.app';
   constructor() {}
 
   async getAll(path: string) {

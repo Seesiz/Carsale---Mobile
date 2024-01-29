@@ -12,12 +12,4 @@ import { Router } from '@angular/router';
   imports: [IonicModule, CommonModule, FormsModule, TabsPageRoutingModule],
   declarations: [TabsPage],
 })
-export class TabsPageModule {
-  constructor(private router: Router) {}
-
-  ngOnInit() {
-    if (localStorage.getItem('carsaleTokken') == null) {
-      this.router.navigateByUrl('login');
-    }
-  }
-}
+export class TabsPageModule {}

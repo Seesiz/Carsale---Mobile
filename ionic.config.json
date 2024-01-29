@@ -3,5 +3,11 @@
   "integrations": {
     "capacitor": {}
   },
+  "proxy": [
+    {
+      "path": "/",
+      "proxyUrl": "https://carsale-back-production.up.railway.app/"
+    }
+  ],
   "type": "angular"
 }

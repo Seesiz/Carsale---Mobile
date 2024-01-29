@@ -5,8 +5,7 @@ const config: CapacitorConfig = {
   appName: 'Carsale',
   webDir: 'www',
   server: {
-    androidScheme: 'http',
-    allowNavigation: ['http://localhost:8080'],
+    androidScheme: 'https',
   },
 };
 
