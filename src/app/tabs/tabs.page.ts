@@ -33,7 +33,7 @@ export class TabsPage implements OnInit {
     } else {
       await this.checkNotification('');
       setInterval(async () => {
-        await this.checkNotification('Rappel:');
+        await this.checkNotification('');
       }, 50000);
     }
   }
@@ -47,12 +47,14 @@ export class TabsPage implements OnInit {
     lastContact.map((element) => {
       if (element.etat == 0) countMessage += 1;
     });
-    await this.GenericService.insert('notification/token', {
-      title: 'Carsale',
-      message: message + `Vous avez ${countMessage} nouveaux messages`,
-      topic: message + `Vous avez ${countMessage} nouveaux messages`,
-      token: this.token,
-    });
+    if (countMessage > 0) {
+      await this.GenericService.insert('notification/token', {
+        title: "C'est peut être votre chance 🍀",
+        message: message + `Vous avez ${countMessage} nouveaux messages`,
+        topic: message + `Vous avez ${countMessage} nouveaux messages`,
+        token: this.token,
+      });
+    }
   }
 
   addListeners = async () => {
