@@ -97,11 +97,15 @@ export class Tab2Page {
       annonce,
       headers
     );
-    this.error = {
-      statut: true,
-      message: response.message,
-    };
-    this.ErrorService.updateData(this.error);
+    this.idEtat = '0';
+    this.idCategorie = '0';
+    this.idModel = '0';
+    this.couleur = '#ff0000';
+    this.plaque = '';
+    this.prix = 0;
+    this.selectedFiles = [];
+    this.base64Files = [];
+    this.caracter = [];
     return;
   }
 

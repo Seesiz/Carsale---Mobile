@@ -7,6 +7,7 @@ import {
   PushNotifications,
   Token,
 } from '@capacitor/push-notifications';
+import { GeneraliserService } from '../Service/generaliser.service';
 
 @Component({
   selector: 'app-tabs',
@@ -15,22 +16,48 @@ import {
 })
 export class TabsPage implements OnInit {
   error: any = {};
+  token: string = '';
 
-  constructor(private ErrorService: ErrorService, private router: Router) {
+  constructor(
+    private ErrorService: ErrorService,
+    private router: Router,
+    private GenericService: GeneraliserService
+  ) {
     this.ErrorService.data$.subscribe((value) => (this.error = value));
   }
-  ngOnInit() {
+  async ngOnInit() {
     this.addListeners();
-
+    this.registerPushNotifications();
     if (localStorage.getItem('CarSalTokken') == null) {
       this.router.navigateByUrl('');
+    } else {
+      await this.checkNotification('');
+      setInterval(async () => {
+        await this.checkNotification('Rappel:');
+      }, 50000);
     }
+  }
+
+  async checkNotification(message: string) {
+    const allLastMessage = await this.GenericService.getAll(
+      'messages/contacts?idUser=' + localStorage.getItem('CarsalidPersonne')
+    );
+    const lastContact = allLastMessage.contacts as any[];
+    let countMessage = 0;
+    lastContact.map((element) => {
+      if (element.etat == 0) countMessage += 1;
+    });
+    await this.GenericService.insert('notification/token', {
+      title: 'Carsale',
+      message: message + `Vous avez ${countMessage} nouveaux messages`,
+      topic: message + `Vous avez ${countMessage} nouveaux messages`,
+      token: this.token,
+    });
   }
 
   addListeners = async () => {
     await PushNotifications.addListener('registration', (token) => {
-      console.log('----------------FCM Token: ', token.value);
-      console.log('Registration token:' + token.value);
+      this.token = token.value;
     });
 
     await PushNotifications.addListener('registrationError', (err) => {
@@ -40,21 +67,21 @@ export class TabsPage implements OnInit {
     await PushNotifications.addListener(
       'pushNotificationReceived',
       (notification) => {
-        alert('Push notification received' + JSON.stringify(notification));
+        //alert('Push notification received' + JSON.stringify(notification));
       }
     );
 
     await PushNotifications.addListener(
       'pushNotificationActionPerformed',
       (notification) => {
-        alert('Push notification performed' + JSON.stringify(notification));
+        //alert('Push notification performed' + JSON.stringify(notification));
       }
     );
   };
 
   async registerPushNotifications() {
     let permStatus = await PushNotifications.checkPermissions();
-    alert(JSON.stringify(permStatus));
+    //alert(JSON.stringify(permStatus));
 
     if (permStatus.receive === 'prompt') {
       permStatus = await PushNotifications.requestPermissions();
@@ -72,9 +99,4 @@ export class TabsPage implements OnInit {
       }
     }
   }
-
-  getDeliveredNotifications = async () => {
-    const notificationList = await PushNotifications.getDeliveredNotifications;
-    alert('delivered notifications ' + JSON.stringify(notificationList));
-  };
 }
